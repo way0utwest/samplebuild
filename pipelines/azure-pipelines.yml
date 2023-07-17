@@ -1,0 +1,24 @@
+trigger:
+- main
+pool:
+  vmImage: 'Default'
+stages:
+- stage: Build
+  displayName: Build stage
+  jobs:  
+  - job: Get Templates
+    displayName: Get Templates
+    steps:
+    - script: |
+        git clone 
+      workingDirectory: '$(Build.Repository.LocalPath)'
+      displayName: 'get the templates'
+  - job: Get dir
+    displayName: Get Dir of templates
+    steps:
+      - template: ./Templates/built.yml
+        parameters:
+          workingDirectory: '$(Build.Repository.LocalPath)/'
+      - template: ./Templates/built.yml
+        parameters:
+          workingDirectory: '$(Build.Repository.LocalPath)/Templates'
